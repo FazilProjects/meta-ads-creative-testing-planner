@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A portfolio dashboard for planning Meta Ads creative tests from a short business brief.">
+  <title>Meta Ads Creative Testing Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <nav class="topbar" aria-label="Primary">
+        <a class="brand-mark" href="#top" aria-label="Meta Ads Creative Testing Planner home">
+          <span class="brand-icon">FA</span>
+          <span>
+            <strong>Creative Testing Planner</strong>
+            <small>Portfolio project by Fazil Waseem</small>
+          </span>
+        </a>
+        <div class="topbar-actions" aria-label="Planner actions">
+          <button class="ghost-button" type="button" id="resetBtn">Reset</button>
+          <button class="primary-button" type="button" id="exportBtn">Export plan</button>
+        </div>
+      </nav>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <span class="eyebrow">Meta Ads planning dashboard</span>
+          <h1>Turn a short business brief into a focused creative testing plan.</h1>
+          <p>
+            A local, no-API portfolio tool for mapping objectives, audiences, offers, hooks,
+            ad copy, test budgets, and winning ad criteria.
+          </p>
+        </div>
+
+        <div class="hero-panel" aria-label="Planner snapshot">
+          <div class="snapshot-row">
+            <span>Workflow</span>
+            <strong>Brief to test matrix</strong>
+          </div>
+          <div class="snapshot-grid">
+            <div>
+              <strong id="snapshotObjective">Traffic</strong>
+              <span>Objective</span>
+            </div>
+            <div>
+              <strong id="snapshotAngles">4</strong>
+              <span>Angles</span>
+            </div>
+            <div>
+              <strong id="snapshotVariants">12</strong>
+              <span>Copy ideas</span>
+            </div>
+          </div>
+          <div class="mini-matrix" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main class="dashboard" id="planner">
+      <section class="workflow-section input-section" aria-labelledby="briefTitle">
+        <div class="section-heading">
+          <span class="step-badge">01</span>
+          <div>
+            <h2 id="briefTitle">Business Brief</h2>
+            <p>Enter the positioning details that shape the local creative plan.</p>
+          </div>
+        </div>
+
+        <form class="planner-form" id="plannerForm">
+          <div class="form-grid">
+            <label class="field field-wide">
+              <span>Short business brief</span>
+              <textarea id="businessBrief" rows="5" placeholder="Example: A local fitness coach wants more booked trial sessions from busy professionals."></textarea>
+            </label>
+
+            <label class="field">
+              <span>Campaign objective</span>
+              <select id="objective">
+                <option value="Leads">Leads</option>
+                <option value="Sales">Sales</option>
+                <option value="Traffic">Traffic</option>
+                <option value="Engagement">Engagement</option>
+                <option value="Awareness">Awareness</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Product or service</span>
+              <input id="product" type="text" placeholder="Example: 6-week coaching plan">
+            </label>
+
+            <label class="field">
+              <span>Target audience</span>
+              <input id="audience" type="text" placeholder="Example: busy professionals, 25-40">
+            </label>
+
+            <label class="field">
+              <span>Audience segment</span>
+              <select id="segment">
+                <option value="Cold prospecting">Cold prospecting</option>
+                <option value="Warm retargeting">Warm retargeting</option>
+                <option value="Lookalike testing">Lookalike testing</option>
+                <option value="Past customers">Past customers</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Offer</span>
+              <input id="offer" type="text" placeholder="Example: free strategy call">
+            </label>
+
+            <label class="field">
+              <span>Test budget</span>
+              <input id="budget" type="text" inputmode="decimal" placeholder="Example: 30000 PKR or $500">
+            </label>
+
+            <label class="field">
+              <span>Main pain point</span>
+              <input id="painPoint" type="text" placeholder="Example: no time to plan workouts">
+            </label>
+
+            <label class="field">
+              <span>Promise or outcome</span>
+              <input id="promise" type="text" placeholder="Example: build a repeatable weekly routine">
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Generate test plan</button>
+            <button class="secondary-button" type="button" id="sampleBtn">Load sample brief</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="kpi-grid" aria-label="Planning summary">
+        <article class="kpi-card accent-blue">
+          <span>Objective</span>
+          <strong id="kpiObjective">Leads</strong>
+          <small>Optimization direction</small>
+        </article>
+        <article class="kpi-card accent-red">
+          <span>Audience</span>
+          <strong id="kpiAudience">Cold prospecting</strong>
+          <small>Testing segment</small>
+        </article>
+        <article class="kpi-card accent-yellow">
+          <span>Budget Split</span>
+          <strong id="kpiBudget">70 / 20 / 10</strong>
+          <small>Exploration mix</small>
+        </article>
+        <article class="kpi-card accent-green">
+          <span>Decision Window</span>
+          <strong id="kpiWindow">3-5 days</strong>
+          <small>Early read period</small>
+        </article>
+      </section>
+
+      <section class="workflow-section" aria-labelledby="audienceTitle">
+        <div class="section-heading">
+          <span class="step-badge">02</span>
+          <div>
+            <h2 id="audienceTitle">Audience Segment Planner</h2>
+            <p>Plan cold, warm, and validation audiences before building variants.</p>
+          </div>
+        </div>
+        <div class="audience-grid" id="audiencePlanner"></div>
+      </section>
+
+      <section class="workflow-section" aria-labelledby="anglesTitle">
+        <div class="section-heading">
+          <span class="step-badge">03</span>
+          <div>
+            <h2 id="anglesTitle">Creative Angle Generator</h2>
+            <p>Use different reasons to believe, not small wording changes.</p>
+          </div>
+        </div>
+        <div class="angle-grid" id="angleGrid"></div>
+      </section>
+
+      <section class="split-layout">
+        <article class="workflow-section" aria-labelledby="hooksTitle">
+          <div class="section-heading compact">
+            <span class="step-badge">04</span>
+            <div>
+              <h2 id="hooksTitle">Hook Ideas</h2>
+              <p>Opening lines for creative concepts.</p>
+            </div>
+          </div>
+          <ul class="idea-list" id="hookList"></ul>
+        </article>
+
+        <article class="workflow-section" aria-labelledby="ctaTitle">
+          <div class="section-heading compact">
+            <span class="step-badge">05</span>
+            <div>
+              <h2 id="ctaTitle">CTA Suggestions</h2>
+              <p>Action prompts matched to the objective.</p>
+            </div>
+          </div>
+          <div class="chip-list" id="ctaList"></div>
+        </article>
+      </section>
+
+      <section class="workflow-section" aria-labelledby="copyTitle">
+        <div class="section-heading">
+          <span class="step-badge">06</span>
+          <div>
+            <h2 id="copyTitle">Ad Copy Variations</h2>
+            <p>Primary text and headlines to combine with creative concepts.</p>
+          </div>
+        </div>
+        <div class="copy-grid">
+          <div>
+            <h3>Primary Text</h3>
+            <div class="copy-stack" id="primaryTextList"></div>
+          </div>
+          <div>
+            <h3>Headlines</h3>
+            <div class="copy-stack" id="headlineList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workflow-section" aria-labelledby="matrixTitle">
+        <div class="section-heading">
+          <span class="step-badge">07</span>
+          <div>
+            <h2 id="matrixTitle">Creative Testing Matrix</h2>
+            <p>Map angles, hooks, formats, copy, and measurement criteria.</p>
+          </div>
+        </div>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Audience</th>
+                <th>Angle</th>
+                <th>Hook</th>
+                <th>Format</th>
+                <th>Primary KPI</th>
+                <th>Decision Rule</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="split-layout">
+        <article class="workflow-section" aria-labelledby="budgetTitle">
+          <div class="section-heading compact">
+            <span class="step-badge">08</span>
+            <div>
+              <h2 id="budgetTitle">Budget Testing Plan</h2>
+              <p>A simple staged budget approach for learning.</p>
+            </div>
+          </div>
+          <div class="budget-plan" id="budgetPlan"></div>
+        </article>
+
+        <article class="workflow-section" aria-labelledby="checklistTitle">
+          <div class="section-heading compact">
+            <span class="step-badge">09</span>
+            <div>
+              <h2 id="checklistTitle">Winning Ad Checklist</h2>
+              <p>Criteria to review before scaling a concept.</p>
+            </div>
+          </div>
+          <ul class="checklist" id="winningChecklist"></ul>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
